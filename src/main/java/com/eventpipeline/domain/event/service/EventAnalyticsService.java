@@ -1,6 +1,7 @@
 package com.eventpipeline.domain.event.service;
 
 import com.eventpipeline.domain.event.entity.Event;
+import com.eventpipeline.domain.event.entity.enums.EventType;
 import com.eventpipeline.domain.event.repository.EventRepository;
 import com.eventpipeline.domain.event.repository.projection.ErrorMessageCount;
 import com.eventpipeline.domain.event.repository.projection.EventTypeCount;
@@ -36,10 +37,13 @@ public class EventAnalyticsService {
         return eventRepository.countByHour();
     }
 
-    // 에러 이벤트 비율 그대로 반환
+    // 에러 이벤트 비율 계산
     @Transactional(readOnly = true)
     public Double errorEventRatio() {
-        return eventRepository.errorEventRatio();
+        long errorCount = eventRepository.countAllByEventType(EventType.ERROR);
+        long totalCount = eventRepository.count();
+        double errorRatio = errorCount / (double) totalCount;
+        return errorRatio;
     }
 
     // 에러 메시지별 발생 빈도 그대로 반환
