@@ -5,8 +5,11 @@ import com.eventpipeline.domain.event.entity.enums.EventType;
 import com.eventpipeline.domain.event.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -22,10 +25,13 @@ public class EventGeneratorService {
     private static final String[] ERROR_MESSAGES = {"NullPointerException", "NetworkTimeoutException", "UnknownException"};
 
     // 이벤트 생성 -> 저장
+    @Transactional
     public void generateEvents(int count){
+        List<Event> events = new ArrayList<>();
         for(int i = 0; i < count; i++){
-            eventRepository.save(createRandomEvent());
+            events.add(createRandomEvent());
         }
+        eventRepository.saveAll(events);
     }
 
     // 이벤트 랜덤 생성
@@ -42,9 +48,11 @@ public class EventGeneratorService {
             amount = BigDecimal.valueOf(random.nextInt(100000) + 1000);
         }else if(eventType == EventType.ERROR){
             errorMessage = ERROR_MESSAGES[random.nextInt(ERROR_MESSAGES.length)];
+        }else if (eventType == EventType.EXPENSE_REVIEWED) {
+            screenName = "expense_review";
         }
         return Event.builder()
-                .eventType(eventType.name())
+                .eventType(eventType)
                 .userId(userId)
                 .sessionId(sessionId)
                 .screenName(screenName)

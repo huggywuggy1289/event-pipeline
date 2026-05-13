@@ -1,5 +1,6 @@
 package com.eventpipeline.domain.event.entity;
 
+import com.eventpipeline.domain.event.entity.enums.EventType;
 import com.eventpipeline.domain.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,8 @@ public class Event extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String eventType;
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
     private String userId;
     private String sessionId;
     private String screenName;
