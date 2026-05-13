@@ -1,4 +1,4 @@
-package com.eventpipeline.domain.global.code;
+package com.eventpipeline.domain.global.apiPayload.code;
 
 public interface BaseErrorCode {
 

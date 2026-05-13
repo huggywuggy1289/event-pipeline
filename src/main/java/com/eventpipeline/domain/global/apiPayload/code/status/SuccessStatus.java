@@ -1,7 +1,7 @@
-package com.eventpipeline.domain.global.status;
+package com.eventpipeline.domain.global.apiPayload.code.status;
 
-import com.eventpipeline.domain.global.code.BaseCode;
-import com.eventpipeline.domain.global.code.ReasonDTO;
+import com.eventpipeline.domain.global.apiPayload.code.BaseCode;
+import com.eventpipeline.domain.global.apiPayload.code.ReasonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

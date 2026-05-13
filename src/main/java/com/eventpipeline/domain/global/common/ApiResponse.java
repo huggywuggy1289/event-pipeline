@@ -1,7 +1,7 @@
 package com.eventpipeline.domain.global.common;
 
-import com.eventpipeline.domain.global.code.BaseCode;
-import com.eventpipeline.domain.global.status.SuccessStatus;
+import com.eventpipeline.domain.global.apiPayload.code.BaseCode;
+import com.eventpipeline.domain.global.apiPayload.code.status.SuccessStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
