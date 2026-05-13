@@ -1,1 +1,14 @@
-spring.application.name=event-pipeline
+spring:
+  datasource:
+    url: jdbc:mysql://db:3306/eventdb
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    open-in-view: false
