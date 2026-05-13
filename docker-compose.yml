@@ -4,6 +4,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: eventdb
+      TZ: Asia/Seoul
     ports:
       - "3307:3306"
     healthcheck:
@@ -16,6 +17,8 @@ services:
     build: .
     ports:
       - "8080:8080"
+    environment:
+      TZ: Asia/Seoul
     depends_on:
       db:
         condition: service_healthy
