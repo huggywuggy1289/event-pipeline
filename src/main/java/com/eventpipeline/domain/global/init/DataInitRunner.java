@@ -1,5 +1,6 @@
 package com.eventpipeline.domain.global.init;
 
+import com.eventpipeline.domain.event.repository.projection.ErrorMessageCount;
 import com.eventpipeline.domain.event.repository.projection.EventTypeCount;
 import com.eventpipeline.domain.event.repository.projection.HourlyEventCount;
 import com.eventpipeline.domain.event.repository.projection.UserEventCount;
@@ -42,6 +43,11 @@ public class DataInitRunner implements CommandLineRunner {
 
         log.info("[에러 이벤트 비율]");
         log.info("  {}", String.format("%.2f%%", eventAnalyticsService.errorEventRatio() * 100));
+
+        log.info("[에러 메시지별 발생 빈도]");
+        for (ErrorMessageCount e : eventAnalyticsService.countByErrorMessage()) {
+            log.info("  {} : {}건", e.getErrorMessage(), e.getCount());
+        }
 
         log.info("======================================");
     }

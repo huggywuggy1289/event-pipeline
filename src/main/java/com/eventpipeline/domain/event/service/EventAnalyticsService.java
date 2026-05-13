@@ -6,12 +6,12 @@ import com.eventpipeline.domain.event.repository.projection.ErrorMessageCount;
 import com.eventpipeline.domain.event.repository.projection.EventTypeCount;
 import com.eventpipeline.domain.event.repository.projection.HourlyEventCount;
 import com.eventpipeline.domain.event.repository.projection.UserEventCount;
+import com.eventpipeline.domain.event.dto.response.AnalyticsSummaryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -55,13 +55,13 @@ public class EventAnalyticsService {
     }
 
     @Transactional(readOnly = true)
-    public Map<String, Object> getAnalyticsSummary() {
-        return Map.of(
-                "eventTypeCounts", countByEventType(),
-                "userEventCounts", countByUserId(),
-                "hourlyEventCounts", countByHour(),
-                "errorEventRatio", errorEventRatio(),
-                "errorMessageCounts", countByErrorMessage()
+    public AnalyticsSummaryResponse getAnalyticsSummary() {
+        return new AnalyticsSummaryResponse(
+                countByEventType(),
+                countByUserId(),
+                countByHour(),
+                errorEventRatio(),
+                countByErrorMessage()
         );
     }
 }
