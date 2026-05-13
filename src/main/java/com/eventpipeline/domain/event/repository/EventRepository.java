@@ -16,7 +16,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     /*
     이벤트 타입별 발생 횟수
      */
-    @Query("SELECT e.eventType, COUNT(e) FROM Event e GROUP BY e.eventType")
+    @Query("SELECT e.eventType AS eventType, COUNT(e) AS count FROM Event e GROUP BY e.eventType")
     List<EventTypeCount> countByEventType();
 
     /*
