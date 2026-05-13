@@ -73,3 +73,9 @@ python visualize.py
 
 - MySQL(Docker)에 JPA 엔티티로 필드를 컬럼별로 분리하여 저장
 - 스키마 및 설계 이유는 상단 [스키마 설명](#스키마-설명) 참고
+
+---
+
+## Step 5. 결과 시각화
+
+<img width="966" height="690" alt="image" src="https://github.com/user-attachments/assets/19d81cfd-3759-49b4-889f-2a2ba6e8f367" />
