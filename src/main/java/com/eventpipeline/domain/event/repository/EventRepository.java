@@ -22,13 +22,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     /*
     유저별 총 이벤트 수
      */
-    @Query("SELECT e.userId, COUNT(e) FROM Event e GROUP BY e.userId")
+    @Query("SELECT e.userId AS userId, COUNT(e) AS count FROM Event e GROUP BY e.userId")
     List<UserEventCount> countByUserId();
 
     /*
     시간대별 이벤트 추이
      */
-    @Query("SELECT HOUR(e.createdAt), COUNT(e) FROM Event e GROUP BY HOUR(e.createdAt) ORDER BY HOUR(e.createdAt)")
+    @Query("SELECT HOUR(e.createdAt) AS hour, COUNT(e) AS count FROM Event e GROUP BY HOUR(e.createdAt) ORDER BY HOUR(e.createdAt)")
     List<HourlyEventCount> countByHour();
 
     /*
@@ -39,6 +39,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     /*
     에러 메시지별 발생 빈도
      */
-    @Query("SELECT e.errorMessage, COUNT(e) FROM Event e WHERE e.eventType = 'ERROR' GROUP BY e.errorMessage")
+    @Query("SELECT e.errorMessage AS errorMessage, COUNT(e) AS count FROM Event e WHERE e.eventType = 'ERROR' GROUP BY e.errorMessage")
     List<ErrorMessageCount> countByErrorMessage();
 }

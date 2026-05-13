@@ -21,8 +21,8 @@ public class DataInitRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        eventGeneratorService.generateEvents(100);
-        log.info("100개의 이벤트 데이터가 생성되었습니다.");
+        eventGeneratorService.generateEvents(157);
+        log.info("157개의 이벤트 데이터가 생성되었습니다.");
 
         log.info("========== 이벤트 분석 결과 ==========");
 
