@@ -1,6 +1,5 @@
 package com.eventpipeline.domain.event.service;
 
-import com.eventpipeline.domain.event.entity.Event;
 import com.eventpipeline.domain.event.entity.enums.EventType;
 import com.eventpipeline.domain.event.repository.EventRepository;
 import com.eventpipeline.domain.event.repository.projection.ErrorMessageCount;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -42,13 +42,26 @@ public class EventAnalyticsService {
     public Double errorEventRatio() {
         long errorCount = eventRepository.countAllByEventType(EventType.ERROR);
         long totalCount = eventRepository.count();
-        double errorRatio = errorCount / (double) totalCount;
-        return errorRatio;
+        if (totalCount == 0) {
+            return 0.0;
+        }
+        return errorCount / (double) totalCount;
     }
 
     // 에러 메시지별 발생 빈도 그대로 반환
     @Transactional(readOnly = true)
     public List<ErrorMessageCount> countByErrorMessage() {
         return eventRepository.countByErrorMessage();
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> getAnalyticsSummary() {
+        return Map.of(
+                "eventTypeCounts", countByEventType(),
+                "userEventCounts", countByUserId(),
+                "hourlyEventCounts", countByHour(),
+                "errorEventRatio", errorEventRatio(),
+                "errorMessageCounts", countByErrorMessage()
+        );
     }
 }
