@@ -24,6 +24,9 @@ public class EventGeneratorService {
     private static final String[] SCREEN_NAMES = {"home", "expense_list", "report", "settings"};
     private static final String[] ERROR_MESSAGES = {"NullPointerException", "NetworkTimeoutException", "UnknownException"};
 
+    private static final int MIN_EXPENSE_AMOUNT = 1_000;
+    private static final int MAX_EXPENSE_AMOUNT = 100_000;
+
     // 이벤트 생성 -> 저장
     @Transactional
     public void generateEvents(int count){
@@ -44,8 +47,10 @@ public class EventGeneratorService {
         BigDecimal amount = null;
         String errorMessage = null;
 
-        if(eventType == EventType.EXPENSE_CREATED){
-            amount = BigDecimal.valueOf(random.nextInt(100000) + 1000);
+        if (eventType == EventType.EXPENSE_CREATED) {
+            amount = BigDecimal.valueOf(
+                    random.nextInt(MAX_EXPENSE_AMOUNT) + MIN_EXPENSE_AMOUNT
+            );
         }else if (eventType == EventType.EXPENSE_REVIEWED) {
             screenName = "expense_review";
         }else if(eventType == EventType.ERROR){
