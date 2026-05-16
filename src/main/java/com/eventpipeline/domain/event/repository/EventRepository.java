@@ -8,6 +8,7 @@ import com.eventpipeline.domain.event.repository.projection.HourlyEventCount;
 import com.eventpipeline.domain.event.repository.projection.UserEventCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -39,6 +40,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     /*
     에러 메시지별 발생 빈도
      */
-    @Query("SELECT e.errorMessage AS errorMessage, COUNT(e) AS count FROM Event e WHERE e.eventType = 'ERROR' GROUP BY e.errorMessage")
-    List<ErrorMessageCount> countByErrorMessage();
+    @Query("SELECT e.errorMessage AS errorMessage, COUNT(e) AS count FROM Event e WHERE e.eventType = :type GROUP BY e.errorMessage")
+    List<ErrorMessageCount> countByErrorMessage(@Param("type") EventType type);
 }

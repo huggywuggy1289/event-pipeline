@@ -46,10 +46,10 @@ public class EventGeneratorService {
 
         if(eventType == EventType.EXPENSE_CREATED){
             amount = BigDecimal.valueOf(random.nextInt(100000) + 1000);
-        }else if(eventType == EventType.ERROR){
-            errorMessage = ERROR_MESSAGES[random.nextInt(ERROR_MESSAGES.length)];
         }else if (eventType == EventType.EXPENSE_REVIEWED) {
             screenName = "expense_review";
+        }else if(eventType == EventType.ERROR){
+            errorMessage = ERROR_MESSAGES[random.nextInt(ERROR_MESSAGES.length)];
         }
         return Event.builder()
                 .eventType(eventType)

@@ -51,7 +51,7 @@ public class EventAnalyticsService {
     // 에러 메시지별 발생 빈도 그대로 반환
     @Transactional(readOnly = true)
     public List<ErrorMessageCount> countByErrorMessage() {
-        return eventRepository.countByErrorMessage();
+        return eventRepository.countByErrorMessage(EventType.ERROR);
     }
 
     @Transactional(readOnly = true)
